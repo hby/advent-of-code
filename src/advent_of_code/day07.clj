@@ -78,7 +78,14 @@
 (comment
   (time
     (output network "a")))
-;"Elapsed time: 0.074211 msecs"
+;"Elapsed time: 0.041553 msecs"
 ;=> 956
 
-;; part two after dinner, I'm hungry
+(def new-network
+  (assoc network "b" [nil nil 956]))
+
+(comment
+  (time
+    (output new-network "a")))
+;"Elapsed time: 0.041161 msecs"
+;=> 40149
