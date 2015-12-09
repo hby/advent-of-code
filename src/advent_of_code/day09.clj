@@ -18,15 +18,11 @@
 (defn cost
   ([graph c1 c2]
    ((graph c1) c2))
-  ([graph [c1 & cities]]
-   (loop [[cnext & more] cities
-          cprev c1
-          total (cost graph cprev cnext)]
-     (if more
-       (recur more
-              cnext
-              (+ total (cost graph cnext (first more))))
-       total))))
+  ([graph cities]
+   (reduce +
+           0
+           (map #(cost graph (first %) (second %))
+                (partition 2 1 cities)))))
 
 (def cities (keys graph))
 
