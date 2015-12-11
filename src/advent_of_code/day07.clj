@@ -61,10 +61,7 @@
 (def network
   (into {}
         (map (fn [[lopn lops op ropn rops nopn nops out]]
-               [out
-                [op
-                 (if lopn lopn lops)
-                 (if op (if ropn ropn rops) (if nopn nopn nops))]])
+               [out [op (or lopn lops) (or ropn rops nopn nops)]])
              puzzle)))
 
 (def output
