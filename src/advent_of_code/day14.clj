@@ -43,4 +43,27 @@
 ;=> ["Vixen" 2660]
 
 
-;; Part 2 - coming ...
+;; Part 2
+
+(defn lead-each-sec
+  [puzzle]
+  (->> (map (fn [deer]
+              (map (fn [dist]
+                     [(deer 0) dist])
+                   (distance-each-sec deer)))
+            puzzle)
+       (apply map vector)
+       (map (fn [pack] (apply max-key second pack)))
+       ))
+
+(defn scores
+  [puzzle secs]
+  (let [lead-seq (lead-each-sec puzzle)]
+    (apply merge-with + (map (fn [l] {(l 0) 1}) (take secs lead-seq)))))
+
+(comment
+  (scores puzzle puzzle-seconds)
+  ;=> {"Prancer" 504, "Blitzen" 1256, "Comet" 158, "Vixen" 422, "Rudolph" 154, "Dasher" 9}
+  (apply max-key val (scores puzzle puzzle-seconds))
+  ;=> ["Blitzen" 1256]
+  )
