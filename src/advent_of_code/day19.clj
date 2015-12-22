@@ -1,7 +1,6 @@
 (ns advent-of-code.day19
-  (:require [clojure.string :as s]))
-
-;(require '[com.inferstructure.repl :as rh])
+  (:require [clojure.string :as s]
+            [instaparse.core :as insta]))
 
 (def replacements-text (slurp "resources/input/day19.txt"))
 
@@ -48,4 +47,50 @@
   (count
     (into #{} (replace-once replacements medicine)))
   ;=> 518
+  )
+
+
+;; Part 2 is a parsing problem as long as your parser gives you the smallest
+;; parse tree for an input. I've heard good things about instaparse so let's
+;; give that a try.
+
+;; This could be generated from the replacements map (which is an interesting thing)
+;; but I wanted to get a feel for typing in the grammar.
+(def grammar
+  (insta/parser
+    "S = H F|N Al|O Mg
+     Mg = B F|Ti Mg|'Mg'
+     Si = Ca Si|'Si'
+     Ti = B P|Ti Ti|'Ti'
+     Ca = Ca Ca|P B|P Rn F Ar|Si Rn F Y F Ar|Si Rn Mg Ar|Si Th|'Ca'
+     Al = Th F|Th Rn F Ar|'Al'
+     H = C Rn Al Ar|C Rn F Y F Y F Ar|C Rn F Y Mg Ar|C Rn Mg Y F Ar|H Ca|N Rn F Y F Ar|N Rn Mg Ar|N Th|O B|O Rn F Ar|'H'
+     F = Ca F|P Mg|Si Al|'F'
+     B = B Ca|Ti B|Ti Rn F Ar|'B'
+     P = Ca P|P Ti|Si Rn F Ar|'P'
+     O = C Rn F Y F Ar|C Rn Mg Ar|H P|N Rn F Ar|O Ti|'O'
+     N = C Rn F Ar|H Si|'N'
+     Th = Th Ca|'Th'
+     C = 'C'
+     Rn = 'Rn'
+     Ar = 'Ar'
+     Y = 'Y'
+     "))
+
+(def parse-tree (grammar medicine-str))
+
+;; Each keyword in the parse tree represents a use of some replacement rule
+;; but we have too many by the amount of terminal symbols, which are strings,
+;; in the parse tree.
+
+(def rules-and-terminals
+  (group-by keyword? (flatten parse-tree)))
+
+(comment
+  (-
+    ; replacememt rules
+    (count (rules-and-terminals true))
+    ; terminal rules
+    (count (rules-and-terminals false)))
+  ;=> 200
   )

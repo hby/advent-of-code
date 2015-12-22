@@ -6,4 +6,6 @@
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/math.combinatorics "0.1.1"]
                  [criterium "0.4.3"]
-                 [org.clojure/data.json "0.2.6"]])
+                 [org.clojure/data.json "0.2.6"]
+                 [instaparse "1.4.1"]]
+  :profiles  {:dev {:dependencies [[com.inferstructure/repl "0.1.0-SNAPSHOT"]]}})
