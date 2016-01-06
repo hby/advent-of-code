@@ -7,6 +7,9 @@
   (map read-string (s/split-lines puzzle-text)))
 
 (defn compare-if-key
+  "returns value of comparison predicate c applied to
+  value in map m under key k, if k is a key in m.
+  returns true if k is not a key in m"
   [m v c k]
   (if (contains? m k)
     (c v (m k))

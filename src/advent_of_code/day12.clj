@@ -5,14 +5,15 @@
 (def puzzle (json/read-str (slurp "resources/input/day12.txt")))
 
 (defn n-numbers
+  "return sum of all numbers in tree of data"
   [data]
   (let [counter (atom 0)
-        walkit (w/postwalk #(if (number? %)
-                             (do
-                               (swap! counter + %)
-                               %)
-                             %)
-                           data)]
+        _ (w/postwalk #(if (number? %)
+                        (do
+                          (swap! counter + %)
+                          %)
+                        %)
+                      data)]
     @counter))
 
 (comment
@@ -21,6 +22,7 @@
   )
 
 (def non-red-puzzle
+  "return puzzle tree with structures removed that have a red value"
   (w/prewalk (fn [form]
                (if (and
                      (map? form)

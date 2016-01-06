@@ -4,54 +4,45 @@
 (def puzzle-text (slurp "resources/input/day05.txt"))
 (def puzzle (s/split-lines puzzle-text))
 
-(defn has-three-vowels
+(defn three-vowels?
   [s]
   (let [vowels #{\a \e \i \o \u}]
-    (< 2
-       (reduce +
-               (map #(if (contains? vowels %) 1 0)
-                    s)))))
+    (< 2 (count (filter vowels s)))))
 
-(defn has-one-double-char
+(defn one-double-char?
   [s]
   (not (empty? (filter #(< 1 (count %)) (partition-by identity s)))))
 
-(defn has-no-bad-substrings
+(defn no-bad-substrings?
   [s]
-  (let [bads ["ab" "cd" "pq" "xy"]]
-    (reduce (fn [p bad] (and p (not (.contains s bad))))
-            true
-            bads)))
+  (let [badregex #"ab|cd|pq|xy"]
+    (not (re-find badregex s))))
 
 (defn nice?
   [s]
-  (let [predicates [has-three-vowels
-                    has-one-double-char
-                    has-no-bad-substrings]]
-    (reduce (fn [t p] (and t (p s)))
-            true
-            predicates)))
+  (let [predicates [three-vowels?
+                    one-double-char?
+                    no-bad-substrings?]]
+    (every? #(% s) predicates)))
 
 (comment
   (count (filter nice? puzzle)))
 ;; 255
 
 
-(defn has-repeat-non-overlap-double
+(defn repeated-non-overlap-double?
   [s]
   (re-find #"(\w\w).*\1" s))
 
-(defn has-an-aba-pattern
+(defn aba-pattern?
   [s]
   (re-find #"(\w)\w\1" s))
 
 (defn nice2?
   [s]
-  (let [predicates [has-repeat-non-overlap-double
-                    has-an-aba-pattern]]
-    (reduce (fn [t p] (and t (p s)))
-            true
-            predicates)))
+  (let [predicates [repeated-non-overlap-double?
+                    aba-pattern?]]
+    (every? #(% s) predicates)))
 
 (comment
   (count (filter nice2? puzzle)))

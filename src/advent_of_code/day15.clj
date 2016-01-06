@@ -33,7 +33,7 @@
 
 (defn score
   [properties mixture]
-  ;{:pre [(= 100 (apply + mixture)) ]}
+  {:pre [(= 100 (apply + mixture))]}
   (->> (map #(drop 1 %) properties)
        (map (fn [m p] (map #(* m %) p)) mixture)
        (apply map vector)

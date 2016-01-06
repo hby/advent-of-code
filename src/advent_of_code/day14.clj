@@ -10,11 +10,12 @@
   (map (fn [l] (drop 1 (re-find pattern l)))
        (s/split-lines puzzle-text)))
 
+; sequence of ([name speed time rest] ...)
 (def puzzle
   (map (fn [p]
          (into [(first p)]
                (map (fn [v]
-                      (Integer/parseInt v) )
+                      (Integer/parseInt v))
                     (rest p))))
        puzzle-pieces))
 
@@ -24,42 +25,46 @@
 ; these nice sequence facilities.
 
 (defn distance-each-sec
-  "deer - [name speed secs restsecs]"
-  [deer]
-  (let [speed (deer 1)
-        secs (deer 2)
-        restsecs (deer 3)]
-    (->> (cycle (concat (repeat secs speed) (repeat restsecs 0)))
-         (reductions +))))
+  "return a sequence of the distance traveled each second
+  for a deer with given speed, sec, and restsecs"
+  [[_ speed secs restsecs]]
+  (->> (cycle (concat (repeat secs speed) (repeat restsecs 0)))
+       (reductions +)))
 
 (defn distance
   [deer secs]
-  (first (drop (dec secs) (distance-each-sec deer))))
+  (->> (distance-each-sec deer)
+       (drop (dec secs))
+       (first)))
 
 (comment
   (->> puzzle
-       (map (fn [p] [(first p) (distance p puzzle-seconds)]))
-       (apply max-key second)))
-;=> ["Vixen" 2660]
+       (map (fn [[name _ _ _ :as deer]] [name (distance deer puzzle-seconds)]))
+       (apply max-key second))
+  ;=> ["Vixen" 2660]
+  )
 
 
 ;; Part 2
 
 (defn lead-each-sec
+  "return a sequence ([deer distance] ...)
+  for each second where deer is the lead deer and distance
+  is how far it has traveled up to that second"
   [puzzle]
-  (->> (map (fn [deer]
+  (->> (map (fn [[name _ _ _ :as deer]]
               (map (fn [dist]
-                     [(deer 0) dist])
+                     [name dist])
                    (distance-each-sec deer)))
             puzzle)
-       (apply map vector)
+       (apply map vector) ;; sequence of where the pack is at each sec
        (map (fn [pack] (apply max-key second pack)))
        ))
 
 (defn scores
   [puzzle secs]
   (let [lead-seq (lead-each-sec puzzle)]
-    (apply merge-with + (map (fn [l] {(l 0) 1}) (take secs lead-seq)))))
+    (apply merge-with + (map (fn [[name _]] {name 1}) (take secs lead-seq)))))
 
 (comment
   (scores puzzle puzzle-seconds)

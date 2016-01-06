@@ -15,7 +15,8 @@
         (reduce (fn [r c]
                   (if (<= (int \A) (int c) (int \Z))
                     (conj r c)
-                    (assoc-in r [(dec (count r))] (str (r (dec (count r))) c))))
+                    (let [idx (dec (count r))]
+                      (assoc-in r [idx] (str (r idx) c)))))
                 []
                 s)))
 
@@ -51,10 +52,9 @@
 
 
 ;; Part 2 is a parsing problem as long as your parser gives you the smallest
-;; parse tree for an input. I've heard good things about instaparse so let's
-;; give that a try.
+;; parse tree for an input. The instaparse library should work.
 
-;; This could be generated from the replacements map (which is an interesting thing)
+;; This could be generated from the replacements map (which would be interesting)
 ;; but I wanted to get a feel for typing in the grammar.
 (def grammar
   (insta/parser

@@ -16,6 +16,7 @@
   [m ks]
   (update-in m ks #(if % (Integer/parseInt %) %)))
 
+;; sequence of ([leftopnum leftopstr op rightopnum rightopstr noopnum noopstr out] ...)
 (def puzzle
   (map (fn [p]
          (-> p
@@ -57,7 +58,10 @@
    "LSHIFT" LSHIFT
    nil NOOP})
 
-;; out -> [op l r]
+;; Map: out -> [op l r]
+;; Represent the network as a map where keys
+;; are the output wires and values are a 3-vector
+;; of [operation leftinput rightinput]
 (def network
   (into {}
         (map (fn [[lopn lops op ropn rops nopn nops out]]
@@ -65,12 +69,14 @@
              puzzle)))
 
 (def output
+  "return output of network at out
+  memoize to avoid redundant computation"
   (memoize
-    (fn [net out]
-      (let [[op l r] (net out)]
+    (fn [network out]
+      (let [[op l r] (network out)]
         ((ops op)
-          (if (string? l) (output net l) l)
-          (if (string? r) (output net r) r))))))
+          (if (string? l) (output network l) l)
+          (if (string? r) (output network r) r))))))
 
 (comment
   (time

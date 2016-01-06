@@ -1,13 +1,12 @@
 (ns advent-of-code.day06
   (:require [clojure.string :as s]))
 
-(set! *warn-on-reflection* true)
-
 (def puzzle-text (slurp "resources/input/day06.txt"))
 
 (def pattern
   #"(turn on|turn off|toggle) (\d+),(\d+) through (\d+),(\d+)")
 
+;; sequence of ([instruction x1 y1 x2 y2] ...)
 (def puzzle
   (map (fn [p] (into [(first p)] (map #(Integer/parseInt %) (drop 1 p))))
        (map (fn [l] (drop 1 (re-find pattern l)))
@@ -15,8 +14,10 @@
 
 (defn ranges->points
   "xr, yr - ranges to sweep through.
-   f      - function, sequence values are (f [x y])
-            identity function is used if not supplied"
+   f      - function to apply to each [x y]
+            identity function is used if not supplied
+   return a sequence values (f [x y])
+    as x and y sweep through their ranges xr and yr"
   ([xr yr f]
    (for [x xr
          y yr]
@@ -24,16 +25,20 @@
   ([xr yr]
    (ranges->points xr yr identity)))
 
+;; represent board as a map where coord [x y] is key that maps to value
 (def board
   (into {}
         (ranges->points (range 1000) (range 1000) #(vector % 0))))
 
 (defn rect->points
+  "return sequence of points bounded by [x1 y1] and [x2 y2]"
   [x1 y1 x2 y2]
   (ranges->points (range (min x1 x2) (inc (max x1 x2)))
                   (range (min y1 y2) (inc (max y1 y2)))))
 
 (defn turn-on
+  "return new board by turning on values of board
+   at points bounded by [x1 y1] and [x2 y2]"
   ([board l]
    (assoc board l 1))
   ([board x1 y1 x2 y2]
@@ -43,6 +48,8 @@
            (rect->points x1 y1 x2 y2))))
 
 (defn turn-off
+  "return new board by turning off values of board
+   at points bounded by [x1 y1] and [x2 y2]"
   ([board l]
    (assoc board l 0))
   ([board x1 y1 x2 y2]
@@ -52,6 +59,8 @@
            (rect->points x1 y1 x2 y2))))
 
 (defn toggle
+  "return new board by toggling the values of board
+   at points bounded by [x1 y1] and [x2 y2]"
   ([board l]
    (assoc board l (if (zero? (board l)) 1 0)))
   ([board x1 y1 x2 y2]
@@ -60,21 +69,23 @@
            board
            (rect->points x1 y1 x2 y2))))
 
-(def actions {"turn on" turn-on
-              "turn off" turn-off
-              "toggle" toggle})
+(def instruction_fns {"turn on" turn-on
+                      "turn off" turn-off
+                      "toggle" toggle})
 
 (defn new-board
-  [board puzzle actions]
+  "return new board after performing all instructions
+  fns - instruction implementations"
+  [board instructions fns]
   (reduce (fn [b [a x1 y1 x2 y2]]
-            ((actions a) b x1 y1 x2 y2))
+            ((fns a) b x1 y1 x2 y2))
           board
-          puzzle))
+          instructions))
 
 (comment
   (reduce +
           0
-          (vals (new-board board puzzle actions))))
+          (vals (new-board board puzzle instruction_fns))))
 ;; 377891
 
 
@@ -106,15 +117,15 @@
            board
            (rect->points x1 y1 x2 y2))))
 
-(def actions-2 {"turn on" turn-on-2
-                "turn off" turn-off-2
-                "toggle" toggle-2})
+(def instruction_fns-2 {"turn on" turn-on-2
+                        "turn off" turn-off-2
+                        "toggle" toggle-2})
 
 (comment
   (time
     (reduce +
             0
-            (vals (new-board board puzzle actions-2)))))
+            (vals (new-board board puzzle instruction_fns-2)))))
 ;"Elapsed time: 28982.363665 msecs"
 ;=> 14110788
 
@@ -261,8 +272,8 @@
            (rect->points x1 y1 x2 y2))))
 
 (def actions-line-transient {"turn on" turn-on-line-transient
-                              "turn off" turn-off-line-transient
-                              "toggle" toggle-line-transient})
+                             "turn off" turn-off-line-transient
+                             "toggle" toggle-line-transient})
 
 (comment
   (time
@@ -272,4 +283,4 @@
 ;"Elapsed time: 3443.695844 msecs"
 ;=> 14110788
 
-;; Ok, 3.5 second range feels more like it. Lots better that 22.
+;; Ok, 3.5 second range feels more like it. Much better that 22 seconds.

@@ -6,7 +6,7 @@
 (def puzzle
   (s/split-lines puzzle-text))
 
-;; Gonna just bang out a poor man FSM
+;; Gonna just bang out a specific FSM
 
 (defn hex-char?
   [c]

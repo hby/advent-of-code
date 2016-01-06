@@ -3,6 +3,7 @@
 
 (def puzzle-text (slurp "resources/input/day02.txt"))
 
+;; sort dimensions so we'll know the short side
 (def puzzle
   (mapv (fn [l] (vec (sort (map #(Integer/parseInt %)
                                 (s/split l #"x")))))

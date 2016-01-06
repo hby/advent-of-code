@@ -6,6 +6,7 @@
 
 (def pattern #"(\w+) would (lose|gain) (\d+) happiness units by sitting next to (\w+)")
 
+;; sequence of ((person1 lose|gain amount person2) ...)
 (def puzzle-pieces
   (map (fn [l] (drop 1 (re-find pattern l)))
        (s/split-lines puzzle-text)))
@@ -37,8 +38,9 @@
   (->> (arrangements guests)
        (map (fn [a] (concat a (map (fn [p] (reverse p)) a))))
        (map happiness)
-       (apply max)))
-;=> 664
+       (apply max))
+  ;=> 664
+  )
 
 (def guests-and-me ["Alice" "Bob" "Carol" "David" "Eric" "Frank" "George" "Mallory" "Bret"])
 
@@ -46,5 +48,6 @@
   (->> (arrangements guests-and-me)
        (map (fn [a] (concat a (map (fn [p] (reverse p)) a))))
        (map happiness)
-       (apply max)))
-;=> 640
+       (apply max))
+  ;=> 640
+  )

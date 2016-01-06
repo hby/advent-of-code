@@ -1,6 +1,7 @@
 (ns advent-of-code.day09
   (:require [clojure.math.combinatorics :as combo]))
 
+;; Map: from -> {to -> distance}
 (def graph
   {
    :Faerun {:Tristram 65 :Tambi 129 :Norrath 144 :Snowdin 71 :Straylight 137 :AlphaCentauri 3 :Arbre 149}
@@ -16,12 +17,14 @@
 ;; Brute
 
 (defn cost
+  "return cost between two cities c1 and c2 or
+  cost along a path of a sequence of cities"
   ([graph c1 c2]
    ((graph c1) c2))
   ([graph cities]
    (reduce +
            0
-           (map #(cost graph (first %) (second %))
+           (map (fn [[c1 c2]] (cost graph c1 c2))
                 (partition 2 1 cities)))))
 
 (def cities (keys graph))
