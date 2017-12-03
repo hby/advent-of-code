@@ -1,7 +1,7 @@
-(ns advent-of-code.day14
+(ns advent-of-code.2015.day14
   (:require [clojure.string :as s]))
 
-(def puzzle-text (slurp "resources/input/day14.txt"))
+(def puzzle-text (slurp "resources/2015/day14.txt"))
 
 (def pattern
   #"(\w+) can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.")

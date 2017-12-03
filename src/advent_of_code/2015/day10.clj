@@ -1,4 +1,4 @@
-(ns advent-of-code.day10)
+(ns advent-of-code.2015.day10)
 
 (def puzzle "1113122113")
 

@@ -1,7 +1,7 @@
-(ns advent-of-code.day02
+(ns advent-of-code.2015.day02
   (:require [clojure.string :as s]))
 
-(def puzzle-text (slurp "resources/input/day02.txt"))
+(def puzzle-text (slurp "resources/2015/day02.txt"))
 
 ;; sort dimensions so we'll know the short side
 (def puzzle

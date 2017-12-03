@@ -1,4 +1,4 @@
-(ns advent-of-code.day20
+(ns advent-of-code.2015.day20
   (:require [clojure.math.numeric-tower :as math]))
 
 (def puzzle 29000000)

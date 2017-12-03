@@ -1,8 +1,8 @@
-(ns advent-of-code.day19
+(ns advent-of-code.2015.day19
   (:require [clojure.string :as s]
             [instaparse.core :as insta]))
 
-(def replacements-text (slurp "resources/input/day19.txt"))
+(def replacements-text (slurp "resources/2015/day19.txt"))
 
 (def pattern #"(\w+) => (\w+)")
 

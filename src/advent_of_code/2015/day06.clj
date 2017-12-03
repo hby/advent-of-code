@@ -1,7 +1,7 @@
-(ns advent-of-code.day06
+(ns advent-of-code.2015.day06
   (:require [clojure.string :as s]))
 
-(def puzzle-text (slurp "resources/input/day06.txt"))
+(def puzzle-text (slurp "resources/2015/day06.txt"))
 
 (def pattern
   #"(turn on|turn off|toggle) (\d+),(\d+) through (\d+),(\d+)")

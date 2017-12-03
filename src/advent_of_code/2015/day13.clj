@@ -1,8 +1,8 @@
-(ns advent-of-code.day13
+(ns advent-of-code.2015.day13
   (:require [clojure.string :as s]
             [clojure.math.combinatorics :as combo]))
 
-(def puzzle-text (slurp "resources/input/day13.txt"))
+(def puzzle-text (slurp "resources/2015/day13.txt"))
 
 (def pattern #"(\w+) would (lose|gain) (\d+) happiness units by sitting next to (\w+)")
 

@@ -1,4 +1,4 @@
-(ns advent-of-code.day09
+(ns advent-of-code.2015.day09
   (:require [clojure.math.combinatorics :as combo]))
 
 ;; Map: from -> {to -> distance}

@@ -1,7 +1,7 @@
-(ns advent-of-code.day07
+(ns advent-of-code.2015.day07
   (:require [clojure.string :as s]))
 
-(def puzzle-text (slurp "resources/input/day07.txt"))
+(def puzzle-text (slurp "resources/2015/day07.txt"))
 
 ;; parses out an 8-tuple
 ;; (leftopnum leftopstr op rightopnum rightopstr noopnum noopstr out)

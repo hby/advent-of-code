@@ -1,7 +1,7 @@
-(ns advent-of-code.day05
+(ns advent-of-code.2015.day05
   (:require [clojure.string :as s]))
 
-(def puzzle-text (slurp "resources/input/day05.txt"))
+(def puzzle-text (slurp "resources/2015/day05.txt"))
 (def puzzle (s/split-lines puzzle-text))
 
 (defn three-vowels?

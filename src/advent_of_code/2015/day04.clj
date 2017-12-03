@@ -1,4 +1,4 @@
-(ns advent-of-code.day04
+(ns advent-of-code.2015.day04
   (:import [java.security MessageDigest]
            [java.math BigInteger]))
 

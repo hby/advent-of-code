@@ -1,6 +1,6 @@
-(ns advent-of-code.day03)
+(ns advent-of-code.2015.day03)
 
-(def puzzle (slurp "resources/input/day03.txt"))
+(def puzzle (slurp "resources/2015/day03.txt"))
 
 (defn move
   "return new position after moving [x y] in direction"

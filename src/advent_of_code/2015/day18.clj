@@ -1,11 +1,11 @@
-(ns advent-of-code.day18
+(ns advent-of-code.2015.day18
   (:require [clojure.string :as s]))
 
 (def on 1)
 (def off 0)
 (def size 100)
 
-(def grid-text (slurp "resources/input/day18.txt"))
+(def grid-text (slurp "resources/2015/day18.txt"))
 
 ;; A grid is a vector of vectors of on's and off's
 (def grid-start

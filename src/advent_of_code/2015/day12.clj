@@ -1,8 +1,8 @@
-(ns advent-of-code.day12
+(ns advent-of-code.2015.day12
   (:require [clojure.data.json :as json]
             [clojure.walk :as w]))
 
-(def puzzle (json/read-str (slurp "resources/input/day12.txt")))
+(def puzzle (json/read-str (slurp "resources/2015/day12.txt")))
 
 (defn n-numbers
   "return sum of all numbers in tree of data"

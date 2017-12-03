@@ -1,6 +1,6 @@
-(ns advent-of-code.day01)
+(ns advent-of-code.2015.day01)
 
-(def puzzle (slurp "resources/input/day01.txt"))
+(def puzzle (slurp "resources/2015/day01.txt"))
 
 (defn floors
   "Lazy seq of the floor after each successive step."

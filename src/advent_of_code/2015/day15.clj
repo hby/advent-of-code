@@ -1,7 +1,7 @@
-(ns advent-of-code.day15
+(ns advent-of-code.2015.day15
   (:require [clojure.string :as s]))
 
-(def puzzle-text (slurp "resources/input/day15.txt"))
+(def puzzle-text (slurp "resources/2015/day15.txt"))
 
 (def pattern
   #"(\w+): capacity ([\-0-9]+), durability ([\-0-9]+), flavor ([\-0-9]+), texture ([\-0-9]+), calories ([\-0-9]+)")
