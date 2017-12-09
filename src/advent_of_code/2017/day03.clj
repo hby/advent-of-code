@@ -38,3 +38,41 @@
   (one puzzle)
   ; => 480
   )
+
+; Store value of coord in map
+; grid: {[x1 y1] value}
+
+(def start-grid
+  {[0 0] 1})
+
+(defn n-coords
+  [c]
+  [(-> c r)
+   (-> c r u)
+   (-> c u)
+   (-> c u l)
+   (-> c l)
+   (-> c l d)
+   (-> c d)
+   (-> c d r)])
+
+(defn add-neighboors
+  [grid coord]
+  (let [cs (n-coords coord)
+        ns (filter identity (map grid cs))]
+    (apply + ns)))
+
+(defn two
+  [puzzle]
+  (reduce (fn [g c]
+            (let [ng (assoc g c (add-neighboors g c))]
+              (if (> (ng c) puzzle)
+                (reduced (ng c))
+                ng)))
+          start-grid
+          (drop 1 coord-seq)))
+
+(comment
+  (two puzzle)
+  ; => 349975
+  )
