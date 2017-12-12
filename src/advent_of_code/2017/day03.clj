@@ -2,6 +2,9 @@
 
 (def puzzle 347991)
 
+; See http://sprungcanary.net/2017/12/11/aoc-without-code/
+; for solution without code
+
 (def nmove-seq (mapcat #(identity [% %]) (iterate inc 1)))
 
 (defn r
