@@ -8,7 +8,7 @@ intended to be stand alone programs to produce an answer.
 
 ## License
 
-Copyright © 2015, 2016, 2017 Bret Young
+Copyright © 2015, 2016, 2017, 2018 Bret Young
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
