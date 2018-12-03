@@ -38,9 +38,9 @@
           (map-indexed (fn [i v] [v i]) (bank-seq puzzle))))
 
 (comment
-  (second (one puzzle))
+  (second (one puzzle)))
   ; => 14029
-  )
+
 
 (defn two
   [puzzle]
@@ -51,6 +51,5 @@
     (- i2 i1)))
 
 (comment
-  (two puzzle)
-  ; => 2765
-  )
+  (two puzzle))
+  ; => 2765))

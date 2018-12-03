@@ -38,9 +38,9 @@
     (apply + (map #(Math/abs %) coord))))
 
 (comment
-  (one puzzle)
+  (one puzzle))
   ; => 480
-  )
+
 
 ; Store value of coord in map
 ; grid: {[x1 y1] value}
@@ -76,6 +76,6 @@
           (drop 1 coord-seq)))
 
 (comment
-  (two puzzle)
+  (two puzzle))
   ; => 349975
-  )
+

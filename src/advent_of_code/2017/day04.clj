@@ -20,9 +20,9 @@
        (count)))
 
 (comment
-  (one puzzle)
+  (one puzzle))
   ; => 386
-  )
+
 
 (defn anagrams?
   [w1 w2]
@@ -44,6 +44,6 @@
        (count)))
 
 (comment
-  (two puzzle)
+  (two puzzle))
   ; => 208
-  )
+

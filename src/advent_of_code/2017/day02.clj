@@ -1,7 +1,7 @@
 (ns advent-of-code.2017.day02
   (:require [clojure.string :as cs]))
 
-(def puzzle (->> (cs/split (slurp "resources/2017/day02.txt") #"\n" )
+(def puzzle (->> (cs/split (slurp "resources/2017/day02.txt") #"\n")
                  (map #(cs/trim %))
                  (mapv (fn [l] (->> (cs/split l #"\s+")
                                     (mapv (fn [i] (Integer/parseInt i))))))))
@@ -15,9 +15,9 @@
   (apply + (map line-cksum puzzle)))
 
 (comment
-  (one puzzle)
+  (one puzzle))
   ; => 44887
-  )
+
 
 (defn evenq
   [n d]
@@ -40,6 +40,6 @@
   (apply + (filter identity (map line-value puzzle))))
 
 (comment
-  (two puzzle)
+  (two puzzle))
   ; => 242
-  )
+

@@ -16,9 +16,8 @@
   (apply + (matching-next-digits puzzle)))
 
 (comment
-  (one puzzle)
+  (one puzzle))
   ; => 1150
-  )
 
 (defn pole-idx
   [idx]
@@ -37,6 +36,6 @@
   (apply + (matching-pole-digits puzzle)))
 
 (comment
-  (two puzzle)
+  (two puzzle))
   ; => 1064
-  )
+

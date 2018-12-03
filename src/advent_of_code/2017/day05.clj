@@ -30,9 +30,9 @@
             state-seq)))
 
 (comment
-  (one puzzle)
+  (one puzzle))
   ; => 391540
-  )
+
 
 (defn jump2
   [[instructions position]]
@@ -54,6 +54,6 @@
             state-seq)))
 
 (comment
-  (two puzzle)
+  (two puzzle))
   ; => 30513679
-  )
+
