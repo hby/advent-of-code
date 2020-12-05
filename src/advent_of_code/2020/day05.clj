@@ -1,6 +1,11 @@
 (ns advent-of-code.2020.day05
   (:require [clojure.string :as str]))
 
+;; Observation:
+;;  Given a binary number n: <7-bit part><3-bit part>
+;;  then 8 * <7-bit part> + <3-bit part>
+;;  is just the number n.
+
 (def input-file (slurp "resources/2020/day05.txt"))
 
 (def input
