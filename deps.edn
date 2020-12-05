@@ -1,0 +1,14 @@
+{:paths ["src" "resources"]
+
+ :deps {org.clojure/clojure {:mvn/version "1.10.1"}
+        org.clojure/math.combinatorics {:mvn/version "0.1.6"}
+        criterium/criterium {:mvn/version "0.4.4"}
+        org.clojure/data.json {:mvn/version "0.2.3"}
+        instaparse/instaparse {:mvn/version "1.4.8"}
+        org.clojure/math.numeric-tower {:mvn/version "0.0.4"}
+        org.clojure/data.csv {:mvn/version "0.1.4"}
+        aysylu/loom {:mvn/version "1.0.2"}}
+
+ :aliases {:dev {:extra-deps {com.inferstructure/repl {:mvn/version "0.1.0-SNAPSHOT"}}}}}
+
+
